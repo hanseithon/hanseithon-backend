@@ -5,7 +5,14 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '..', 'config', 'config.json'))[env];
 const db = {};
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+  define: {
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+    timestamps: true,
+  },
+  logging: false,
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -20,9 +27,14 @@ db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' }); */
 
 db.User = require('./models/user.model')(sequelize, Sequelize);
 db.Board = require('./models/board.model')(sequelize, Sequelize);
+db.BoardLike = require('./models/boardLike.model')(sequelize, Sequelize);
 
 db.User.hasMany(db.Board, { foreignKey: 'user_pk', sourceKey: 'pk' });
+db.User.hasMany(db.BoardLike, { foreignKey: 'user_pk', sourceKey: ' pk' });
+db.Board.hasMany(db.BoardLike, { foreignKey: 'board_pk', sourceKey: 'pk' });
 
 db.Board.belongsTo(db.User, { foreignKey: 'user_pk', targetKey: 'pk' });
+db.BoardLike.belongsTo(db.User, { foreignKey: 'user_pk', targetKey: 'pk' });
+db.BoardLike.belongsTo(db.Board, { foreignKey: 'board_pk', targetKey: 'pk' });
 
 module.exports = db;
