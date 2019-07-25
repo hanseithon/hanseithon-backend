@@ -23,7 +23,7 @@ db.Board = require('./models/board.model')(sequelize, Sequelize);
 db.BoardLike = require('./models/boardLike.model')(sequelize, Sequelize);
 
 db.User.hasMany(db.Board, { foreignKey: 'user_pk', sourceKey: 'pk' });
-db.User.hasMany(db.BoardLike, { foreignKey: 'user_pk', sourceKey: ' pk' });
+db.User.hasMany(db.BoardLike, { foreignKey: 'user_pk', sourceKey: 'pk' });
 db.Board.hasMany(db.BoardLike, { foreignKey: 'board_pk', sourceKey: 'pk' });
 
 db.Board.belongsTo(db.User, { foreignKey: 'user_pk', targetKey: 'pk' });
