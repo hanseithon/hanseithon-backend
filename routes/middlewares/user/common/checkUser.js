@@ -1,7 +1,7 @@
-const User = require('../../../../database/models/user.model');
+const User = require('../../../../database').User;
 
 const checkUser = async (req, res, next) => {
-  const { id } = req.body;
+  const { id, password, rePassword, name } = req.body;
 
   try {
     const user = await User.findOne({
@@ -17,14 +17,23 @@ const checkUser = async (req, res, next) => {
               success: false,
               message: '중복된 아이디입니다.',
             })
-          : next();
+          : (res.locals.user = {
+              id: id,
+              name: name,
+              password: password,
+              rePassword: rePassword,
+            });
+        next();
+        break;
       case '/login':
-        user
-          ? (res.local.user = user)
-          : res.status(412).json({
+        !user
+          ? res.status(412).json({
               success: false,
               message: '존재하지 않는 유저입니다.',
-            });
+            })
+          : (res.locals.user = user);
+        next();
+        break;
     }
   } catch (err) {
     console.log(err);
