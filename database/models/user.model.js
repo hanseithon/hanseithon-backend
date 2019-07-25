@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('user', {
+  return sequelize.define('User', {
     pk: {
       primaryKey: true,
       type: DataTypes.UUID,
