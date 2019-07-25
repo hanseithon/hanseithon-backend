@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/user', require('./routes/controllers/user.controller'));
+app.use('/board', require('./routes/controllers/board.controller'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
