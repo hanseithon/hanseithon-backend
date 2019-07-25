@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const randomstring = require('randomstring');
 
 const passwordEncryption = (req, res, next) => {
   const { password } = req.body;
@@ -6,18 +7,18 @@ const passwordEncryption = (req, res, next) => {
 
   const encryption = {
     salt: user ? user.salt : null,
-    password: null,
+    password: password,
   };
 
   try {
-    if (!user.salt) {
-      encryption.salt = crypto.randomBytes(64, (err, buf) => {
-        crypto.pbkdf2(password, buf.toString('base64'), 44444, 64, 'sha512');
-      });
+    if (!encryption.salt) {
+      encryption.salt = randomstring.generate(64);
     }
-    encryption.password = crypto.pbkdf2(password, encryption.salt, 44444, 64, 'sha512');
-
-    res.locals.user = {
+    encryption.password = crypto
+      .createHash('sha256')
+      .update(encryption.password + encryption.salt)
+      .digest('base64');
+    res.locals.temp = {
       password: encryption.password,
       salt: encryption.salt,
     };
