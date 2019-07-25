@@ -18,4 +18,11 @@ db.Comment = require('./comment')(sequelize, Sequelize);
 /* db.User.hasMany(db.Comment, { foreignKey: 'commenter', sourceKey: 'id' });
 db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' }); */
 
+db.User = require('./models/user.model')(sequelize, Sequelize);
+db.Board = require('./models/board.model')(sequelize, Sequelize);
+
+db.User.hasMany(db.Board, { foreignKey: 'user_pk', sourceKey: 'pk' });
+
+db.Board.belongsTo(db.User, { foreignKey: 'user_pk', targetKey: 'pk' });
+
 module.exports = db;

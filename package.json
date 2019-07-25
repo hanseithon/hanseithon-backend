@@ -9,11 +9,25 @@
     "debug": "~2.6.9",
     "dotenv": "^8.0.0",
     "express": "~4.16.0",
+    "express-validator": "^6.1.1",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
     "path": "^0.12.7",
     "sequelize": "^5.10.2"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kb4ek/hanseithon-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kb4ek/hanseithon-backend/issues"
+  },
+  "homepage": "https://github.com/kb4ek/hanseithon-backend#readme",
+  "description": ""
 }
