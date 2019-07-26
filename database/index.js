@@ -20,14 +20,18 @@ db.Comment.belongsTo(db.User, { foreignKey: 'commenter', targetKey: 'id' }); */
 
 db.User = require('./models/user.model')(sequelize, Sequelize);
 db.Board = require('./models/board.model')(sequelize, Sequelize);
-db.BoardLike = require('./models/boardLike.model')(sequelize, Sequelize);
+db.boardLikes = require('./models/boardLike.model')(sequelize, Sequelize);
+db.Category = require('./models/category.model')(sequelize, Sequelize);
+db.BoardHashtag = require('./models/boardHashtag.model')(sequelize, Sequelize);
 
 db.User.hasMany(db.Board, { foreignKey: 'user_pk', sourceKey: 'pk' });
-db.User.hasMany(db.BoardLike, { foreignKey: 'user_pk', sourceKey: 'pk' });
-db.Board.hasMany(db.BoardLike, { foreignKey: 'board_pk', sourceKey: 'pk' });
+db.User.hasMany(db.boardLikes, { foreignKey: 'user_pk', sourceKey: 'pk' });
+db.Board.hasMany(db.boardLikes, { foreignKey: 'board_pk', sourceKey: 'pk' });
+db.Board.hasMany(db.BoardHashtag, { foreignKey: 'board_pk', sourceKey: 'pk' });
 
 db.Board.belongsTo(db.User, { foreignKey: 'user_pk', targetKey: 'pk' });
-db.BoardLike.belongsTo(db.User, { foreignKey: 'user_pk', targetKey: 'pk' });
-db.BoardLike.belongsTo(db.Board, { foreignKey: 'board_pk', targetKey: 'pk' });
+db.boardLikes.belongsTo(db.User, { foreignKey: 'user_pk', targetKey: 'pk' });
+db.boardLikes.belongsTo(db.Board, { foreignKey: 'board_pk', targetKey: 'pk' });
+db.BoardHashtag.belongsTo(db.BoardHashtag, { foreignKey: 'board_pk', targetKey: 'pk' });
 
 module.exports = db;
