@@ -11,9 +11,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         allowNull: false,
       },
-      board_pk: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      title: {
+        type: DataTypes.STRING(50),
+        allowNull: true,
+      },
+      content: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
       },
     },
     {
