@@ -1,17 +1,28 @@
 const Board = require('../../../../database').Board;
+const BoardHashtag = require('../../../../database').BoardHashtag;
 
-const postBoard = (req, res, next) => {
+const postBoard = async (req, res, next) => {
   const { title, content } = req.body;
+  const hashTags = req.body.hashtag;
+  const user = res.locals.user;
 
   try {
-    await Board.create({
+    const board = await Board.create({
+      user_pk: user.pk,
       title: title,
-      content: content
-    })
+      content: content,
+    });
 
+    if (hashTags) {
+      for (var i = 0; i < hashTags.length; i++)
+        await BoardHashtag.create({
+          board_pk: board.pk,
+          hashtag: hashTags[i],
+        });
+    }
     res.json({
-      success: true
-    })
+      success: true,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -20,3 +31,5 @@ const postBoard = (req, res, next) => {
     });
   }
 };
+
+module.exports = postBoard;
