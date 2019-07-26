@@ -1,0 +1,60 @@
+@font-face {
+  font-family: Spoqa;
+  src: url(../views/Desktop/Spoqa\Han\Sans\Light.ttf) format('truetype');
+}
+
+body {
+  width: 99%;
+  height: 750px;
+  background: url('https://www.youtube.com/embed/3MOXy2sTiAw');
+  background-color: black;
+}
+#BackgroundVideo {
+  width: 100%;
+  height: 100%;
+}
+
+#Title {
+  font-family: Spoqa;
+  font-size: 130%;
+  padding: 10px;
+  padding-left: 10px;
+  width: 97%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+#Title2 {
+  font-family: Spoqa;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+
+#Logo {
+  background-color: white;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+#videobcg {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  /* width: auto; */
+  /* height: auto; */
+  z-index: -1000;
+  overflow: hidden;
+}
