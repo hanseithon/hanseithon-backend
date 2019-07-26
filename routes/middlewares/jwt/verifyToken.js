@@ -5,22 +5,29 @@ const verifyToken = async (req, res, next) => {
   const token = req.headers.token;
 
   try {
-    const token_secret = process.env.TOKEN_SECRET;
-    const pk = jwt.verify(token, token_secret);
+    if (token) {
+      const token_secret = process.env.TOKEN_SECRET;
+      const pk = jwt.verify(token, token_secret).pk;
 
-    const user = await User.findOne({
-      where: {
-        pk: pk,
-      },
-    });
+      const user = await User.findOne({
+        where: {
+          pk: pk,
+        },
+      });
 
-    if (user) {
-      res.locals.user = user;
-      next();
+      if (user) {
+        res.locals.user = user;
+        next();
+      } else {
+        res.status(403).json({
+          success: false,
+          message: '권한이 없습니다.',
+        });
+      }
     } else {
-      res.status(403).json({
+      res.status(401).json({
         success: false,
-        message: '권한이 없습니다.',
+        messasge: '토큰이 없습니다.',
       });
     }
   } catch (err) {
