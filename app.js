@@ -15,6 +15,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use('/category', require('./routes/controllers/category.controller'));
 app.use('/user', require('./routes/controllers/user.controller'));
 app.use('/board', require('./routes/controllers/board.controller'));
 
